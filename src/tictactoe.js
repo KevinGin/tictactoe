@@ -1,20 +1,5 @@
 var prompt = require('prompt');
 
-// console.log('hello!')
-
-// console.log('1 | 2 | 3')
-// console.log('_ | _ | _')
-// console.log('1 | 2 | 3')
-// console.log('_ | _ | _')
-// console.log('1 | 2 | 3')
-
-// console.log('X | X | X')
-// console.log('_ | _ | _')
-// console.log('O | O | X')
-// console.log('_ | _ | _')
-// console.log('X | O | X')
-
-
 var Board = function() {
 	this.turn = 'X'
 	this.storage = {
@@ -31,7 +16,7 @@ Board.prototype.insert = function(col, row) {
 	this.turn === 'X' ? this.turn = 'O' : this.turn = 'X'
 }
 
-//only check most recent entry, not entire board
+// only check most recent entry, not entire board
 Board.prototype.success = function(col,row) {
 	return this.rowSuccess(row) || this.columnSuccess(col) || this.diagonalSuccess();
 }
@@ -152,13 +137,6 @@ var board = new Board();
 prompt.start();
 setPromptMessage();
 playGame(board);
-
-
-
-
-// Check to make sure spot isn't taken
-
-
 
 
 
