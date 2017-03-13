@@ -64,18 +64,42 @@ Board.prototype.diagonalSuccess = function() {
 }
 
 
-var a = new Board();
+Board.prototype.display = function() {
+	var storage = this.storage;
+	console.log('         1   2   3')
+	console.log('')
+	this.displayCol('A');
+	console.log('         _ | _ | _')
+	this.displayCol('B');
+	console.log('         _ | _ | _')
+	this.displayCol('C');
+	console.log('           |   |  ')
+}
 
-a.insert('A', 2, 'X')
-a.insert('A', 1, 'X')
-a.insert('B', 0, 'O')
-a.insert('A', 0, 'O')
-a.insert('C', 0, 'O')
+Board.prototype.displayCol = function(col) {
+	var storage = this.storage;
+	displayZero = storage[col][0] || ' '
+	displayOne = storage[col][1] || ' '
+	displayTwo = storage[col][2] || ' '
 
 
-console.log(a.storage)
+	console.log('  '+ col + '      ' + displayZero +   ' | ' + displayOne + ' | ' + displayTwo)
+}
 
-console.log(a.check('C',0))
+var board = new Board();
+
+board.insert('A', 2, 'X')
+board.insert('A', 1, 'X')
+board.insert('B', 0, 'O')
+board.insert('A', 0, 'O')
+board.insert('C', 0, 'O')
+
+
+board.display();
+
+// console.log(board.storage)
+
+// console.log(board.check('C',0))
 
 
 
