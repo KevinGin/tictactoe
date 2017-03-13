@@ -16,6 +16,7 @@ var prompt = require('prompt');
 
 
 var Board = function() {
+	this.turn = 'X'
 	this.storage = {
 		A: [],
 		B: [],
@@ -23,8 +24,9 @@ var Board = function() {
 	};
 };
 
-Board.prototype.insert = function(col, row, val) {
-	this.storage[col][row] = val  // (row-1) because user doesn't see 0
+Board.prototype.insert = function(col, row) {
+	this.storage[col][row] = this.turn  // (row-1) because user doesn't see 0
+	this.turn === 'X' ? this.turn = 'O' : this.turn = 'X'
 }
 
 //only check most recent entry, not entire board
@@ -81,44 +83,47 @@ Board.prototype.displayCol = function(col) {
 	displayZero = storage[col][0] || ' '
 	displayOne = storage[col][1] || ' '
 	displayTwo = storage[col][2] || ' '
-
-
 	console.log('  '+ col + '      ' + displayZero +   ' | ' + displayOne + ' | ' + displayTwo)
 }
 
+
+
+// board.insert('A', 2, 'X')
+// board.insert('A', 1, 'X')
+// board.insert('B', 0, 'O')
+// board.insert('A', 0, 'O')
+// board.insert('C', 0, 'O')
+
+
+
+
+
 var board = new Board();
 
-board.insert('A', 2, 'X')
-board.insert('A', 1, 'X')
-board.insert('B', 0, 'O')
-board.insert('A', 0, 'O')
-board.insert('C', 0, 'O')
-
-
-board.display();
-
-// console.log(board.storage)
-
-// console.log(board.check('C',0))
+prompt.start()
 
 
 
+function playGame(board) {
+	board.display();
+	prompt.get(['column', 'row'], function(err,data) {
+		console.log('got info')
+		board.insert(data.column, data.row - 1);
+		playGame(board);
+	})
+}
 
-// console.log('         1   2   3')
-// console.log('')
-// console.log('  A        |   |  ')
-// console.log('         _ | _ | _')
-// console.log('  B        |   |  ')
-// console.log('         _ | _ | _')
-// console.log('  C        |   |  ')
-// console.log('           |   |  ')
+
+playGame(board);
 
 
 
 
 
-// prompt.start();
 
-// prompt.get(['yo', 'hi'], function(err,data){
-// 	console.log(data)
-// })
+
+
+
+
+
+
